@@ -1,23 +1,33 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import VerticalSpace from './VerticalSpace'
 
-export default function Form () {
+export default function Form ({ onSuccess }) {
+  const firstNameRef = useRef()
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+
+    onSuccess({
+      firstName: firstNameRef.current.value,
+    })
+  }
+
   return (
     <>
       <h1>Fill in with some data</h1>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-item">
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="first-name">First name</label>
           <VerticalSpace height={5} />
-          <input id="firstName" type="text" placeholder="Type in your first name" />
+          <input id="first-name" type="text" placeholder="Type in your first name" ref={firstNameRef} />
         </div>
 
         <VerticalSpace height={5} />
 
         <div className="form-item">
-          <label htmlFor="lastName">Last Name</label>
+          <label htmlFor="last-name">Last name</label>
           <VerticalSpace height={5} />
-          <input id="lastName" type="text" placeholder="Type in your last name" />
+          <input id="last-name" type="text" placeholder="Type in your last name" />
         </div>
 
         <VerticalSpace height={5} />
